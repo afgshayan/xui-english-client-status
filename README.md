@@ -99,7 +99,6 @@ You can generate and share this link with each VPN user so they can check their 
 <p align="center">
   <img src="https://raw.githubusercontent.com/afgshayan/xui-english-client-status/refs/heads/main/Screenshot.png" alt="پیش‌نمایش وضعیت اکانت VPN" width="600">
 </p>
----
 
 ## 💡 Tips
 
