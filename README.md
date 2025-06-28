@@ -1,27 +1,147 @@
-# VPN Status Page (فارسی)
 
-این پروژه یک صفحه‌ی ساده‌ی PHP برای نمایش وضعیت اکانت VPN کاربران `x-ui` (نسخه انگلیسی) است. کاربران می‌توانند با یک لینک اختصاصی (بر اساس UUID) وضعیت مصرف، تاریخ انقضا و سایر اطلاعات حساب خود را ببینند.
+# 🇮🇷 Persian VPN User Status Page for x-ui-english
 
-## ویژگی‌ها
-- نمایش نام کاربر، UUID، تاریخ انقضا، ترافیک مصرف‌شده و باقی‌مانده
-- طراحی زیبا و فارسی با Bootstrap و آیکن‌های Font Awesome
-- بدون نیاز به ورود یا رمز عبور
+A responsive, easy-to-install PHP page that displays live information about each user's VPN account from the [x-ui-english](https://github.com/NidukaAkalanka/x-ui-english) panel — specifically built for Persian users.
 
-## نصب و استفاده
+> ✅ Fully RTL and Persian-friendly  
+> 🧠 Smart usage and expiry calculations  
+> 🎨 Clean and modern design with Bootstrap
 
-1. فایل `status.php` را در مسیر `/var/www/html/` یا هر مسیر وب‌سرور خود قرار دهید.
-2. مطمئن شوید که ماژول `pdo_sqlite` برای PHP نصب شده باشد:
+---
+
+## 📌 What does it do?
+
+This lightweight PHP tool reads the `x-ui-english` SQLite database directly and shows the following:
+
+- UUID & username (email field)
+- Total quota and remaining quota (in GB)
+- Used data (upload + download)
+- Expiry time with human-readable text like:  
+  ➤ `7 روز مانده` — *7 days remaining*  
+  ➤ `2 روز گذشته` — *2 days expired*
+- IP limit (number of allowed devices)
+
+It’s designed as a simple **shareable status page** for each user, without needing login — just a UUID in the URL.
+
+---
+
+## 🛠 Installation (Ubuntu 22.04+)
+
+### 1. Install Apache and PHP:
 
 ```bash
-sudo apt install php-sqlite3
+sudo apt update
+sudo apt install apache2 php php-sqlite3 -y
+```
+
+### 2. Create the PHP file:
+
+```bash
+sudo nano /var/www/html/status.php
+```
+
+Paste the contents of `status.php` (from this repo) into the file.
+
+### 3. Set correct permissions:
+
+```bash
+sudo chmod 755 /var/www/html/status.php
+```
+
+### 4. Restart Apache:
+
+```bash
 sudo systemctl restart apache2
 ```
 
-3. لینک را به شکل زیر برای کاربران ارسال کنید:
+---
+
+## 🔍 Usage
+
+Just open the following link in your browser:
 
 ```
-http://YOUR_SERVER_IP/status.php?uuid=YOUR_UUID
+http://YOUR_SERVER_IP/status.php?uuid=USER_UUID
 ```
-## لایسنس
 
-MIT
+Example:
+
+```
+http://4.182.248.255/status.php?uuid=8d68db78-5f3b-44c9-854e-61215a189cdd
+```
+
+You can generate and share this link with each VPN user so they can check their status anytime — **no login required**.
+
+---
+
+## 📁 File Structure
+
+```
+/var/www/html/
+└── status.php   ← Main status display page
+```
+
+---
+
+## ⚙️ Technical Details
+
+- 📦 **Database file**: `/etc/x-ui-english/x-ui-english.db`
+- 🧩 Reads from 2 tables:
+  - `users` → for username/password
+  - `inbounds` → for UUIDs, traffic, limits, expiry
+- 🧮 Traffic usage and limits are shown in GB
+- 📅 Expiry time (timestamp in milliseconds) is converted to Persian date text
+- 💡 Fully RTL and uses Bootstrap + Font Awesome (CDN-loaded)
+
+---
+
+## 🖼️ UI Preview
+
+> 📷 If you'd like, you can add a real screenshot here.
+
+```
+╔══════════════════════════════════════╗
+║ نام کاربر: Ali                      ║
+║ UUID: xxxxxxxx-xxxx-xxxx-xxxx-...   ║
+║ حجم کل: 30 GB                       ║
+║ مصرف‌شده: 3.2 GB                    ║
+║ باقیمانده: 26.8 GB                  ║
+║ تاریخ انقضا: 7 روز مانده           ║
+║ تعداد دستگاه مجاز: 4               ║
+╚══════════════════════════════════════╝
+```
+
+---
+
+## 💡 Tips
+
+- Make sure x-ui-english is already installed and running on your server.
+- Confirm that the SQLite database path is:  
+  `/etc/x-ui-english/x-ui-english.db`
+- You can modify the file and add your own branding/logo easily at the top.
+
+---
+
+## 🚀 To-do & Suggestions
+
+Pull requests are welcome!
+
+Ideas for improvement:
+- Export to PDF / printable format
+- Add Persian/English language switch
+- Display usage history (if tracked)
+- Secure with optional password or token
+
+---
+
+## 📜 License
+
+MIT License — free to use, share, and modify.
+
+---
+
+## 🙌 Credits
+
+- Developed for Persian-speaking VPN providers  
+- Built on top of the amazing [x-ui-english](https://github.com/NidukaAkalanka/x-ui-english) panel  
+- PHP + Bootstrap + SQLite ❤️
