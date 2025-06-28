@@ -22,11 +22,6 @@ sudo systemctl restart apache2
 ```
 http://YOUR_SERVER_IP/status.php?uuid=YOUR_UUID
 ```
-
-## توسعه
-
-اگر نیاز به افزودن QR Code، PDF خروجی یا طراحی‌های خاص‌تری داشتید، می‌توانید فایل را توسعه دهید یا از ChatGPT بخواهید کمک کند.
-
 ## لایسنس
 
 MIT
