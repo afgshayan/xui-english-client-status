@@ -67,7 +67,7 @@ http://YOUR_SERVER_IP/status.php?uuid=USER_UUID
 Example:
 
 ```
-http://4.182.248.255/status.php?uuid=8d68db78-5f3b-44c9-854e-61215a189cdd
+http://123.123.123.123/status.php?uuid=000000000-00000-000000-00-00000000
 ```
 
 You can generate and share this link with each VPN user so they can check their status anytime — **no login required**.
@@ -96,19 +96,10 @@ You can generate and share this link with each VPN user so they can check their 
 ---
 
 ## 🖼️ UI Preview
+<p align="center">
+  <img src="https://raw.githubusercontent.com/afgshayan/xui-english-client-status/refs/heads/main/Screenshot.png" alt="پیش‌نمایش وضعیت اکانت VPN" width="600">
+</p>
 
-> 📷 If you'd like, you can add a real screenshot here.
-
-```
-╔══════════════════════════════════════╗
-║ نام کاربر: Ali                      ║
-║ UUID: xxxxxxxx-xxxx-xxxx-xxxx-...   ║
-║ حجم کل: 30 GB                       ║
-║ مصرف‌شده: 3.2 GB                    ║
-║ باقیمانده: 26.8 GB                  ║
-║ تاریخ انقضا: 7 روز مانده           ║
-║ تعداد دستگاه مجاز: 4               ║
-╚══════════════════════════════════════╝
 ```
 
 ---
