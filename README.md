@@ -1,2 +1,32 @@
-# xui-english-client-status
-A simple PHP-based status page for x-ui-english users. Displays user VPN info like UUID, data usage, expiration date, and IP limits. Fully localized in Persian with a modern, responsive UI using Bootstrap and Font Awesome.
+# VPN Status Page (فارسی)
+
+این پروژه یک صفحه‌ی ساده‌ی PHP برای نمایش وضعیت اکانت VPN کاربران `x-ui` (نسخه انگلیسی) است. کاربران می‌توانند با یک لینک اختصاصی (بر اساس UUID) وضعیت مصرف، تاریخ انقضا و سایر اطلاعات حساب خود را ببینند.
+
+## ویژگی‌ها
+- نمایش نام کاربر، UUID، تاریخ انقضا، ترافیک مصرف‌شده و باقی‌مانده
+- طراحی زیبا و فارسی با Bootstrap و آیکن‌های Font Awesome
+- بدون نیاز به ورود یا رمز عبور
+
+## نصب و استفاده
+
+1. فایل `status.php` را در مسیر `/var/www/html/` یا هر مسیر وب‌سرور خود قرار دهید.
+2. مطمئن شوید که ماژول `pdo_sqlite` برای PHP نصب شده باشد:
+
+```bash
+sudo apt install php-sqlite3
+sudo systemctl restart apache2
+```
+
+3. لینک را به شکل زیر برای کاربران ارسال کنید:
+
+```
+http://YOUR_SERVER_IP/status.php?uuid=YOUR_UUID
+```
+
+## توسعه
+
+اگر نیاز به افزودن QR Code، PDF خروجی یا طراحی‌های خاص‌تری داشتید، می‌توانید فایل را توسعه دهید یا از ChatGPT بخواهید کمک کند.
+
+## لایسنس
+
+MIT
