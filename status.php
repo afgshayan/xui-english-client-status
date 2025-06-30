@@ -17,16 +17,19 @@ try {
     $db = new PDO("sqlite:$dbPath");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $db->query("SELECT settings FROM inbounds LIMIT 1");
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $json = $row['settings'];
-    $data = json_decode($json, true);
-
+    // اصلاح: بررسی تمام inbounds برای یافتن uuid
+    $stmt = $db->query("SELECT settings FROM inbounds");
     $clientFound = null;
-    foreach ($data['clients'] as $client) {
-        if ($client['id'] === $uuid) {
-            $clientFound = $client;
-            break;
+    foreach ($stmt as $row) {
+        $json = $row['settings'];
+        $data = json_decode($json, true);
+        if (!isset($data['clients'])) continue;
+
+        foreach ($data['clients'] as $client) {
+            if ($client['id'] === $uuid) {
+                $clientFound = $client;
+                break 2; // خروج از دو حلقه چون پیدا شده
+            }
         }
     }
 
@@ -36,8 +39,10 @@ try {
 
     $email = htmlspecialchars($clientFound['email']);
     $ipLimit = (int)$clientFound['limitIp'];
+    $ipLimitDisplay = ($ipLimit === 0) ? 'نامحدود' : $ipLimit;
+
     $totalBytes = $clientFound['totalGB'];
-    $totalFormatted = formatBytes($totalBytes);
+    $totalFormatted = ($totalBytes === 0) ? 'نامحدود' : formatBytes($totalBytes);
 
     // تاریخ انقضا
     $expiryTimestamp = $clientFound['expiryTime'];
@@ -114,7 +119,7 @@ try {
   <ul class="list-group list-group-flush">
     <li class="list-group-item"><i class="fas fa-user icon"></i> نام کاربر: <?= $email ?></li>
     <li class="list-group-item"><i class="fas fa-key icon"></i> شناسه UUID: <?= $uuid ?></li>
-    <li class="list-group-item"><i class="fas fa-wifi icon"></i> تعداد آی‌پی مجاز: <?= $ipLimit ?></li>
+    <li class="list-group-item"><i class="fas fa-wifi icon"></i> تعداد آی‌پی مجاز: <?= $ipLimitDisplay ?></li>
     <li class="list-group-item"><i class="fas fa-calendar-alt icon"></i> تاریخ انقضا: <?= $expiryText ?></li>
     <li class="list-group-item"><i class="fas fa-download icon"></i> ترافیک مصرف‌شده: <?= $usedFormatted ?></li>
     <li class="list-group-item"><i class="fas fa-database icon"></i> حجم کل: <?= $totalFormatted ?></li>
