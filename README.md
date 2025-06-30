@@ -32,6 +32,7 @@ It’s designed as a simple **shareable status page** for each user, without nee
 ```bash
 sudo apt update
 sudo apt install apache2 php php-sqlite3 -y
+sudo apt update && sudo apt install nano -y
 ```
 
 ### 2. Create the PHP file:
